@@ -15,9 +15,18 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
+
 -- List of plugins
 local plugins = {
     { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    { 
+      "catppuccin/nvim", 
+      name = "catppuccin", 
+      priority = 1000,
+      config = function()
+        require("plugins.catppuccin")  -- Load Catppuccin-specific configuration
+      end
+    },
     { 
       "nvim-telescope/telescope.nvim", 
       tag = "0.1.8", 
@@ -31,14 +40,6 @@ local plugins = {
       build = ":TSUpdate",
       config = function()
         require("plugins.treesitter")  -- Load Treesitter-specific configuration
-      end
-    },
-    { 
-      "catppuccin/nvim", 
-      name = "catppuccin", 
-      priority = 1000,
-      config = function()
-        require("plugins.catppuccin")  -- Load Catppuccin-specific configuration
       end
     },
     { 
@@ -60,7 +61,7 @@ local plugins = {
         require("plugins.lsp")  -- Load LSP-specific configuration
       end
     },
-
+    { "mfussenegger/nvim-jdtls" },
 }
 
 local opts = {} 

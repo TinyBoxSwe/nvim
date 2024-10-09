@@ -6,3 +6,4 @@ vim.g.mapleader = " "
 require("keymaps")
 require("settings")
 require("plugins")
+vim.cmd('filetype plugin on')
