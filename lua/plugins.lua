@@ -41,10 +41,14 @@ local plugins = {
         require("plugins.catppuccin")  -- Load Catppuccin-specific configuration
       end
     },
-    -- Add other plugins here
+    { 
+      "nvim-tree/nvim-tree.lua", 
+      requires = { "nvim-tree/nvim-web-devicons" },  -- Optional: for file icons
+      config = function()
+          require("plugins.nvimtree")
+      end
+    },
 }
 
-local opts = {}  -- Any additional Lazy.nvim options
-
--- Initialize the plugin setup
+local opts = {} 
 require("lazy").setup(plugins, opts)
