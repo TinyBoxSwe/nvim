@@ -1,6 +1,9 @@
 local cmp = require'cmp'
 
 cmp.setup({
+    completion = {
+        completeopt = 'menu,menuone,noselect',
+    },
     snippet = {
         expand = function(args)
             require('luasnip').lsp_expand(args.body)  -- For snippet support
@@ -14,9 +17,8 @@ cmp.setup({
         ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Confirm selection
     },
     sources = {
-        { name = 'nvim_lsp' },     -- Use LSP as a source
-        { name = 'buffer' },       -- Use buffer words
-        { name = 'path' },         -- Use filesystem paths
+        { name = 'nvim_lsp', dup = 0 },     -- Use LSP as a source
+        { name = 'buffer', dup = 0 },       -- Use buffer words
+        { name = 'path', dup = 0 },         -- Use filesystem paths
     },
 })
-

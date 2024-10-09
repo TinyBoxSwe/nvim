@@ -59,12 +59,7 @@ local plugins = {
       end
     },
     -- LSP Configuration
-    { 
-      "neovim/nvim-lspconfig",  -- Add LSP support
-      config = function()
-        require("plugins.lsp")  -- Load LSP-specific configuration
-      end
-    },
+    { "neovim/nvim-lspconfig" },
     -- Java Development Tools
     { 
       "mfussenegger/nvim-jdtls",
