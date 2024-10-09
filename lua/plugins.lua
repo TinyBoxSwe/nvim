@@ -47,7 +47,20 @@ local plugins = {
       config = function()
           require("plugins.nvimtree")
       end
+    }, 
+    {
+    "williamboman/mason.nvim",
+    config = function()
+        require("plugins.mason")
+    end
     },
+    { 
+      "neovim/nvim-lspconfig",  -- Add LSP support
+      config = function()
+        require("plugins.lsp")  -- Load LSP-specific configuration
+      end
+    },
+
 }
 
 local opts = {} 
