@@ -1,3 +1,4 @@
+-- plugins.lua
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
@@ -15,53 +16,74 @@ if not (vim.uv or vim.loop).fs_stat(lazypath) then
 end
 vim.opt.rtp:prepend(lazypath)
 
-
--- List of plugins
 local plugins = {
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000 },
+    -- Theme
     { 
       "catppuccin/nvim", 
       name = "catppuccin", 
       priority = 1000,
       config = function()
-        require("plugins.catppuccin")  -- Load Catppuccin-specific configuration
+        require("plugins.catppuccin")
       end
     },
+    -- Telescope
     { 
       "nvim-telescope/telescope.nvim", 
       tag = "0.1.8", 
       dependencies = { "nvim-lua/plenary.nvim" },
       config = function()
-        require("plugins.telescope")  -- Load Telescope-specific configuration
+        require("plugins.telescope")
       end
     },
+    -- Treesitter
     { 
       "nvim-treesitter/nvim-treesitter", 
       build = ":TSUpdate",
       config = function()
-        require("plugins.treesitter")  -- Load Treesitter-specific configuration
+        require("plugins.treesitter")
       end
     },
+    -- Nvim-tree
     { 
       "nvim-tree/nvim-tree.lua", 
-      requires = { "nvim-tree/nvim-web-devicons" },  -- Optional: for file icons
+      dependencies = { "nvim-tree/nvim-web-devicons" },  -- Optional: for file icons
       config = function()
           require("plugins.nvimtree")
       end
     }, 
+    -- Mason for managing LSP servers
     {
-    "williamboman/mason.nvim",
-    config = function()
-        require("plugins.mason")
-    end
+      "williamboman/mason.nvim",
+      config = function()
+          require("plugins.mason")
+      end
     },
+    -- LSP Configuration
     { 
       "neovim/nvim-lspconfig",  -- Add LSP support
       config = function()
         require("plugins.lsp")  -- Load LSP-specific configuration
       end
     },
-    { "mfussenegger/nvim-jdtls" },
+    -- Java Development Tools
+    { 
+      "mfussenegger/nvim-jdtls",
+      config = function()
+          require("plugins.jdtls")  -- Ensure you have a separate jdtls config
+      end
+    },
+    -- Completion Plugins
+    { 
+        'hrsh7th/nvim-cmp',
+        config = function() 
+            require("plugins.cmpconfig") 
+        end
+    },         -- Completion plugin
+    { 'hrsh7th/cmp-nvim-lsp' },     -- LSP source for nvim-cmp
+    { 'hrsh7th/cmp-buffer' },       -- Buffer completions
+    { 'hrsh7th/cmp-nvim-lua' },     -- Lua completions
+    { 'L3MON4D3/LuaSnip' },         -- Snippet engine
+    { 'saadparwaiz1/cmp_luasnip' }, -- Snippet source for nvim-cmp
 }
 
 local opts = {} 
