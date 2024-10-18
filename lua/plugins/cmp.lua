@@ -1,9 +1,10 @@
 local cmp = require('cmp')
+local luasnip = require('luasnip')
 
 cmp.setup({
   snippet = {
     expand = function(args)
-      require('luasnip').lsp_expand(args.body) -- Using LuaSnip for snippet expansion.
+      luasnip.lsp_expand(args.body) -- Use LuaSnip for snippet expansion.
     end,
   },
   mapping = {
@@ -11,10 +12,41 @@ cmp.setup({
     ['<Up>'] = cmp.mapping.select_prev_item(),
     ['<C-Space>'] = cmp.mapping.complete(),
     ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Accept currently selected item.
+    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item()
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
+    ['<S-Tab>'] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item()
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }),
   },
   sources = {
     { name = 'nvim_lsp' }, -- Enables LSP-based completion.
     { name = 'luasnip' },  -- Enables snippet completion.
+  },
+  window = {
+    completion = {
+      border = 'rounded', -- Rounded border around the completion menu.
+      winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
+    },
+    documentation = {
+      border = 'rounded',
+      winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
+    },
+  },
+  experimental = {
+    ghost_text = true, -- Shows inline preview of completions.
   },
 })
