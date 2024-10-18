@@ -67,10 +67,18 @@ local plugins = {
       "nvim-java/nvim-java",
       config = function()
         require('java').setup()
-        require('lspconfig').jdtls.setup({})
+        require('lspconfig').jdtls.setup({
+            root_dir = require('lspconfig.util').root_pattern(".git", "mvnw", "gradlew", "pom.xml", "build.gradle"),
+            capabilities = require('cmp_nvim_lsp').default_capabilities(),
+        })
       end      
     },
+    { "neovim/nvim-lspconfig" }, -- LSP configurations
+    { "hrsh7th/nvim-cmp" },      -- Autocompletion
+    { "hrsh7th/cmp-nvim-lsp" },  -- LSP source for nvim-cmp
+    { "L3MON4D3/LuaSnip" },      -- Snippet engine
 }
 
 local opts = {} 
 require("lazy").setup(plugins, opts)
+require("plugins.cmp")
