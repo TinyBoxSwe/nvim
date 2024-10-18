@@ -54,31 +54,22 @@ local plugins = {
     -- Mason for managing LSP servers
     {
       "williamboman/mason.nvim",
-      config = function()
-          require("plugins.mason")
-      end
+      opts = {
+        -- your options here, e.g.,
+        ensure_installed = { "jdtls", "lua-language-server" },
+        ui = {
+            border = "rounded",
+        },
+      }
     },
-    -- LSP Configuration
-    { "neovim/nvim-lspconfig" },
-    -- Java Development Tools
-    { 
-      "mfussenegger/nvim-jdtls",
+    -- java
+    {
+      "nvim-java/nvim-java",
       config = function()
-          require("plugins.jdtls")  -- Ensure you have a separate jdtls config
-      end
+        require('java').setup()
+        require('lspconfig').jdtls.setup({})
+      end      
     },
-    -- Completion Plugins
-    { 
-        'hrsh7th/nvim-cmp',
-        config = function() 
-            require("plugins.cmpconfig") 
-        end
-    },         -- Completion plugin
-    { 'hrsh7th/cmp-nvim-lsp' },     -- LSP source for nvim-cmp
-    { 'hrsh7th/cmp-buffer' },       -- Buffer completions
-    { 'hrsh7th/cmp-nvim-lua' },     -- Lua completions
-    { 'L3MON4D3/LuaSnip' },         -- Snippet engine
-    { 'saadparwaiz1/cmp_luasnip' }, -- Snippet source for nvim-cmp
 }
 
 local opts = {} 
