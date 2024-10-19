@@ -19,11 +19,12 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
     -- Theme
     { 
-      "catppuccin/nvim", 
-      name = "catppuccin", 
+      'marko-cerovac/material.nvim', 
+      name = "material", 
       priority = 1000,
       config = function()
         require("plugins.catppuccin")
+        vim.g.material_style = "deep ocean"
       end
     },
     -- Telescope

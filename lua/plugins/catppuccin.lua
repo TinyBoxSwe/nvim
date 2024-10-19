@@ -1,2 +1,4 @@
-require("catppuccin").setup()
-vim.cmd.colorscheme("catppuccin")
+-- require("catppuccin").setup()
+require('material').setup({})
+vim.g.material_style = "deep ocean"
+vim.cmd('colorscheme material')

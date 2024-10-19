@@ -13,7 +13,7 @@ vim.keymap.set("i", "<C-d>", "<Esc>'+yy'+pi", { desc = "Duplicate current line d
 vim.keymap.set({"n", "i"}, "<S-Tab>", "<C-w>w", { desc = "Cycle to next split" })
 
 -- Toggle relative line numbers in normal mode.
-vim.keymap.set("n", "<leader>rn", ":set rnu!<CR>", { desc = "Toggle relative line numbers" })
+vim.keymap.set("n", "<leader>rn", ":set rnu!<CR>:set nu!<CR>", { desc = "Toggle relative line numbers" })
 
 -- Format the current buffer using LSP in normal mode.
 vim.keymap.set("n", "<leader>fm", function() vim.lsp.buf.format { async = true } end, { desc = "Format current buffer" })
@@ -62,5 +62,7 @@ local function redo()
 end
 
 vim.keymap.set({"i", "n"}, "<C-r>", redo, { desc = "Redo" } )
+
+vim.keymap.set("n", "<leader>th", ':lua require("material.functions").find_style()<CR>')
 
 
