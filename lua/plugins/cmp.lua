@@ -4,7 +4,7 @@ local luasnip = require('luasnip')
 cmp.setup({
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body) -- Use LuaSnip for snippet expansion.
+      luasnip.lsp_expand(args.body)
     end,
   },
   mapping = {
@@ -32,21 +32,22 @@ cmp.setup({
       end
     end, { 'i', 's' }),
   },
-  sources = {
-    { name = 'nvim_lsp' }, -- Enables LSP-based completion.
-    { name = 'luasnip' },  -- Enables snippet completion.
-  },
   window = {
-    completion = {
-      border = 'rounded', -- Rounded border around the completion menu.
-      winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
-    },
+    completion = cmp.config.window.bordered({
+      max_width = 1,
+    }),
     documentation = {
       border = 'rounded',
       winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
+      max_width = 1,
+      max_height = 10,
     },
   },
   experimental = {
-    ghost_text = true, -- Shows inline preview of completions.
+    ghost_text = true,
+  },
+  sources = {
+    { name = 'nvim_lsp', },
+    { name = 'luasnip', },
   },
 })

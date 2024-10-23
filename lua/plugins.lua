@@ -1,5 +1,3 @@
--- plugins.lua
-
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
@@ -56,14 +54,19 @@ local plugins = {
     {
       "williamboman/mason.nvim",
       opts = {
-        -- your options here, e.g.,
-        ensure_installed = { "jdtls", "lua-language-server" },
+        ensure_installed = { "jdtls", "lua-language-server", "gopls" }, -- Added gopls here
         ui = {
             border = "rounded",
         },
       }
     },
-    -- java
+    -- Autocompletion and Snippets
+    { "hrsh7th/nvim-cmp", },     -- Autocompletion
+    { "neovim/nvim-lspconfig" }, -- LSP configurations
+    { "hrsh7th/cmp-nvim-lsp" },  -- LSP source for nvim-cmp
+    { "L3MON4D3/LuaSnip" },      -- Snippet engine
+
+    -- Java LSP setup
     {
       "nvim-java/nvim-java",
       config = function()
@@ -74,12 +77,28 @@ local plugins = {
         })
       end      
     },
-    { "neovim/nvim-lspconfig" }, -- LSP configurations
-    { "hrsh7th/nvim-cmp" },      -- Autocompletion
-    { "hrsh7th/cmp-nvim-lsp" },  -- LSP source for nvim-cmp
-    { "L3MON4D3/LuaSnip" },      -- Snippet engine
+
+    -- Go LSP setup
+    {
+      "neovim/nvim-lspconfig",
+      config = function()
+        require('plugins/cmp').on_attach()
+        require('lspconfig').gopls.setup({
+          capabilities = require('cmp_nvim_lsp').default_capabilities(),
+          root_dir = require('lspconfig.util').root_pattern("go.work", "go.mod", ".git"), -- Added root_dir
+          settings = {
+            gopls = {
+              analyses = {
+                unusedparams = true,
+              },
+              staticcheck = true,
+            },
+          },
+        })
+      end,
+    },
 }
 
 local opts = {} 
 require("lazy").setup(plugins, opts)
-require("plugins.cmp")
+require('plugins.cmp')
