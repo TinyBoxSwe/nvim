@@ -57,7 +57,14 @@ local plugins = {
           require("plugins.lualine")
       end
     },
-
+    {
+        'akinsho/bufferline.nvim',
+        requires = 'nvim-tree/nvim-web-devicons', -- optional, for file icons
+        config = function()
+            require('bufferline').setup {}
+        end
+    },
+    -- Gitsigns
     { 
       'lewis6991/gitsigns.nvim',
       dependencies = { 'nvim-lua/plenary.nvim' },

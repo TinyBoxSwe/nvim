@@ -11,6 +11,10 @@ vim.keymap.set({"n", "v"}, "Y", '"+Y', { desc = "Yank line to system clipboard" 
 vim.keymap.set({"n", "v"}, "p", '"+p', { desc = "Paste from system clipboard" })
 vim.keymap.set({"n", "v"}, "P", '"+P', { desc = "Paste before from system clipboard" })
 
+-- Use system clipboard for deleting (cutting) in normal, visual, and operator-pending modes
+vim.keymap.set({"n", "v"}, "d", '"+d', { desc = "Delete to system clipboard" })  -- Normal mode delete
+vim.keymap.set({"n", "v"}, "D", '"+D', { desc = "Delete to the end of line to system clipboard" })  -- Delete to end of line
+
 -- Map <C-d> to duplicate the current line down in both normal and insert modes, using system clipboard.
 vim.keymap.set("n", "<C-d>", '"+yy"+p', { desc = "Duplicate current line down" })
 vim.keymap.set("i", "<C-d>", "<Esc>'+yy'+pi", { desc = "Duplicate current line down in insert mode" })
