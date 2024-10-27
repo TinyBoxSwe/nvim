@@ -48,7 +48,23 @@ local plugins = {
       config = function()
           require("plugins.nvimtree")
       end
-    }, 
+    },
+    -- Lualine
+    {
+      'nvim-lualine/lualine.nvim',
+      dependencies = { 'nvim-tree/nvim-web-devicons' },
+      config = function()
+          require("plugins.lualine")
+      end
+    },
+
+    { 
+      'lewis6991/gitsigns.nvim',
+      dependencies = { 'nvim-lua/plenary.nvim' },
+      config = function()
+            require("plugins.gitsigns")
+        end
+    },
     -- Mason for managing LSP servers
     {
       "williamboman/mason.nvim",
