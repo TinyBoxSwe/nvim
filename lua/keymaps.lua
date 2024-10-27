@@ -1,4 +1,10 @@
 
+-- Resize the window left by 5 columns in all modes
+vim.keymap.set({"n", "i", "v"}, "<A-Right>", ":vertical resize -5<CR>", { desc = "Resize window left by 5" })
+
+-- Resize the window right by 5 columns in all modes
+vim.keymap.set({"n", "i", "v"}, "<A-Left>", ":vertical resize +5<CR>", { desc = "Resize window right by 5" })
+
 -- Use system clipboard for yanking and pasting in normal, visual, and operator-pending modes.
 vim.keymap.set({"n", "v"}, "y", '"+y', { desc = "Yank to system clipboard" })
 vim.keymap.set({"n", "v"}, "Y", '"+Y', { desc = "Yank line to system clipboard" })
