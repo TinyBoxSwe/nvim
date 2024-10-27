@@ -49,6 +49,14 @@ local plugins = {
           require("plugins.nvimtree")
       end
     },
+    {
+        'nvimdev/dashboard-nvim',
+        event = 'VimEnter',
+        config = function()
+            require('plugins.dashboard')
+        end,
+        dependencies = { {'nvim-tree/nvim-web-devicons'}}
+    },
     -- Lualine
     {
       'nvim-lualine/lualine.nvim',
