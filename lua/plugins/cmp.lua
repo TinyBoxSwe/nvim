@@ -1,18 +1,19 @@
+-- lua/plugins/cmp.lua
 local cmp = require('cmp')
 local luasnip = require('luasnip')
 
 cmp.setup({
   snippet = {
     expand = function(args)
-      luasnip.lsp_expand(args.body)
+      luasnip.lsp_expand(args.body) -- For `luasnip` users.
     end,
   },
   mapping = {
     ['<Down>'] = cmp.mapping.select_next_item(),
     ['<Up>'] = cmp.mapping.select_prev_item(),
-    ['<C-Space>'] = cmp.mapping.complete(),
-    ['<C-e>'] = cmp.mapping.close(),
-    ['<CR>'] = cmp.mapping.confirm({ select = true }),
+    ['<C-Space>'] = cmp.mapping.complete(),  -- Trigger completion manually
+    ['<C-e>'] = cmp.mapping.close(),         -- Close completion menu
+    ['<CR>'] = cmp.mapping.confirm({ select = true }), -- Confirm selection
     ['<Tab>'] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item()
@@ -32,22 +33,15 @@ cmp.setup({
       end
     end, { 'i', 's' }),
   },
+  sources = {
+    { name = 'nvim_lsp' },  -- LSP completion source
+    { name = 'luasnip' },   -- Snippets completion source
+  },
   window = {
-    completion = cmp.config.window.bordered({
-      max_width = 1,
-    }),
-    documentation = {
-      border = 'rounded',
-      winhighlight = 'NormalFloat:NormalFloat,FloatBorder:FloatBorder',
-      max_width = 1,
-      max_height = 10,
-    },
+    completion = cmp.config.window.bordered(),    -- Add borders to the completion window
+    documentation = cmp.config.window.bordered(), -- Add borders to the documentation window
   },
   experimental = {
-    ghost_text = true,
-  },
-  sources = {
-    { name = 'nvim_lsp', },
-    { name = 'luasnip', },
+    ghost_text = true, -- Ghost text as suggestions
   },
 })

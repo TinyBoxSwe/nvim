@@ -17,12 +17,11 @@ vim.opt.rtp:prepend(lazypath)
 local plugins = {
     -- Theme
     { 
-      'marko-cerovac/material.nvim', 
-      name = "material", 
+      "catppuccin/nvim",
+      name = "catppuccin",
       priority = 1000,
       config = function()
         require("plugins.catppuccin")
-        vim.g.material_style = "deep ocean"
       end
     },
     -- Telescope
@@ -82,19 +81,7 @@ local plugins = {
     {
       "neovim/nvim-lspconfig",
       config = function()
-        require('plugins/cmp').on_attach()
-        require('lspconfig').gopls.setup({
-          capabilities = require('cmp_nvim_lsp').default_capabilities(),
-          root_dir = require('lspconfig.util').root_pattern("go.work", "go.mod", ".git"), -- Added root_dir
-          settings = {
-            gopls = {
-              analyses = {
-                unusedparams = true,
-              },
-              staticcheck = true,
-            },
-          },
-        })
+        require('plugins.gopls')
       end,
     },
 }
