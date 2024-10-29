@@ -1,3 +1,37 @@
+-- Stack implementation
+local Stack = {}
+
+function Stack.new()
+    return setmetatable({ items = {}, size = 0 }, { __index = Stack })
+end
+
+function Stack:push(item)
+    self.size = self.size + 1
+    table.insert(self.items, item)
+end
+
+function Stack:get_size()
+    return self.size
+end
+
+function Stack:pop()
+    if self.size <= 0 then
+        error("Size of the stack is already at the lowest allowed size!")
+    end
+    local item = self.items[self.size]
+    self.items[self.size] = nil
+    self.size = self.size - 1
+    return item
+end
+
+function Stack:peek()
+    if self.size == 0 then
+        return nil
+    end
+    return self.items[self.size]
+end
+
+
 local M = {}
 
 local ns = vim.api.nvim_create_namespace("RainbowNamespace")
@@ -47,22 +81,22 @@ local function rainbow()
     local lines = vim.api.nvim_buf_get_lines(buffer, 0, -1, false)
     local counter = 0
     local in_string = false
-
+    local ps = Stack.new()  -- Create a new stack instance
     vim.api.nvim_buf_clear_namespace(buffer, ns, 0, -1)
 
     for i, line in ipairs(lines) do
+        in_string = not in_string
         for j = 1, #line do
             local c = line:sub(j, j)
-
-            if c == "'" then
-                in_string = not in_string
-                while j <= #line and c ~= "'" do
-                    j = j + 1
-                    c = line:sub(j, j)
+            if c == "'" or c == '"' then
+                if ps:peek() == c then
+                    ps:pop()
+                else
+                    ps:push(c)
                 end
             end
 
-            if in_string then
+            if ps:get_size() > 0 then  -- Updated method call
                 goto continue
             end
 

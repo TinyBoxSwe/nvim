@@ -10,6 +10,10 @@ function Stack:push(item)
     table.insert(self.items, item)
 end
 
+function Stack:size()
+    return self.size
+end
+
 function Stack:pop()
     if self.size <= 0 then
         error("Size of the stack is already at the lowest allowed size!")
