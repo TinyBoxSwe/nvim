@@ -49,6 +49,7 @@ local plugins = {
             require("plugins.nvimtree")
         end
     },
+    -- Init Screen
     {
         'nvimdev/dashboard-nvim',
         event = 'VimEnter',
@@ -95,7 +96,6 @@ local plugins = {
     { "neovim/nvim-lspconfig" }, -- LSP configurations
     { "hrsh7th/cmp-nvim-lsp" },  -- LSP source for nvim-cmp
     { "L3MON4D3/LuaSnip" },      -- Snippet engine
-
     -- Java LSP setup
     {
         "nvim-java/nvim-java",
@@ -107,7 +107,6 @@ local plugins = {
             })
         end
     },
-
     -- Go LSP setup
     {
         "neovim/nvim-lspconfig",
@@ -116,9 +115,14 @@ local plugins = {
             require('plugins.luals')
         end,
     },
+    -- Rainbow parenthesees
+    {
+        "TinyBoxSwe/rainbow",
+        config = function()
+            require("plugins.rainbow")  -- Require the rainbow configuration file
+        end
+    },
 }
-
 local opts = {}
 require("lazy").setup(plugins, opts)
 require('plugins.cmp')
-require('plugins.rainbow-parenthesees')
