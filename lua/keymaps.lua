@@ -1,5 +1,9 @@
+vim.keymap.set( "n", "<Leader>q", ":q!<CR>" )
+vim.keymap.set( "n", "<Leader>t", ":below terminal<CR>" )
 -- Resize the window left by 5 columns in all modes
 vim.keymap.set({ "n", "i", "v" }, "<A-Right>", ":vertical resize -5<CR>", { desc = "Resize window left by 5" })
+vim.keymap.set({ "n", "i", "v" }, "<A-Down>", ":horizontal resize +2<CR>", { desc = "Resize window left by 5" })
+vim.keymap.set({ "n", "i", "v" }, "<A-Up>", ":horizontal resize -2<CR>", { desc = "Resize window left by 5" })
 
 -- Resize the window right by 5 columns in all modes
 vim.keymap.set({ "n", "i", "v" }, "<A-Left>", ":vertical resize +5<CR>", { desc = "Resize window right by 5" })
