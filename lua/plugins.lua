@@ -15,6 +15,22 @@ end
 vim.opt.rtp:prepend(lazypath)
 
 local plugins = {
+    -- Maven
+    {
+        "eatgrass/maven.nvim",
+        cmd = { "Maven", "MavenExec" },
+        dependencies = "nvim-lua/plenary.nvim",
+        config = function()
+            require("plugins.maven")
+        end
+    },
+    -- Guide Lines
+    {
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("plugins.indent")
+        end
+    },
     -- Theme
     {
         "catppuccin/nvim",
@@ -119,7 +135,7 @@ local plugins = {
     {
         "TinyBoxSwe/rainbow",
         config = function()
-            require("plugins.rainbow")  -- Require the rainbow configuration file
+            require("plugins.rainbow") -- Require the rainbow configuration file
         end
     },
 }
